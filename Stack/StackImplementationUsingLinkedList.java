@@ -1,43 +1,67 @@
 package stack;
 
-import java.util.*;
-
 public class StackImplementationUsingLinkedList {
-
-  private Node top;
-
-  public void push(int value) {
-    top = new Node(value, top);
-  }
-
-  public int pop() {
-    if (top == null) throw new EmptyStackException();
-    int value = top.value;
-    top = top.next;
-    return value;
-  }
-
-  public int peek() {
-    if (top == null) throw new EmptyStackException();
-    return top.value;
-  }
-
-  public boolean isEmpty() {
-    return top == null;
-  }
-
-  private static class Node {
-
-    int value;
-    Node next;
-
-    Node(int value, Node next) {
-      this.value = value;
-      this.next = next;
+    static class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data = data;
+            this.next = null;
+        }
     }
-  }
+    static class Stack{
+        Node top;
+        Stack(){
+            this.top = null;
+        }
+        void push(int value){
+            Node newNode = new Node(value);
+            newNode.next = top;
+            top = newNode;
+        }
+        int pop(){
+            if(top==null){
+                System.out.println("Stack Underflow");
+                return -1;
+            }
+            int value = top.data;
+            top = top.next;
+            return value;
+        }
+        int peek(){
+            if(top==null){
+                System.out.println("Stack is empty");
+                return -1;
+            }
+            return top.data;
+        }
+        void display(){
+            if(top==null){
+                System.out.println("Stack is empty");
+                return;
+            }
+            Node temp = top;
+            while(temp!=null){
+                System.out.print(temp.data+" ");
+                temp = temp.next;
+            }
+            System.out.println();
+        }
 
-  public static void main(String[] args) {
-    System.out.println("Stack Implementation Using Linked List");
-  }
+    }
+
+    public static void main(String args[]){
+        Stack st=new Stack();
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        st.display();
+        System.out.println("Popped "+ st.pop());
+        System.out.println("Top element is "+st.peek());
+        st.display();
+    }
+    
 }
